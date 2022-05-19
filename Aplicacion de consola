@@ -1,0 +1,130 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+namespace Arreglo_numerico
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            
+            List<float> arreglo = new List<float>();
+            Console.ForegroundColor = ConsoleColor.Blue;
+
+            int opcion;
+            do
+            {
+     Console.WriteLine("Integrantes:Cristobal Caballero Angel.Jhovani Martin Jimenes Lopez");
+                Console.WriteLine("Menù: ");
+                Console.WriteLine("Ingresar los Numeros: 1");
+                Console.WriteLine("Mostrar los Numeros : 2");
+                Console.WriteLine("Ordenar los Numeros : 3");
+                Console.WriteLine("Guardar los Numeros : 4");
+                Console.WriteLine("Salir: 0");
+                Console.WriteLine("");
+                Console.Write("Ingrese Opciòn: ");
+                opcion = int.Parse(Console.ReadLine());
+                Console.WriteLine("");
+
+                switch(opcion)
+                {
+                    case 1:
+                        //ingresar los numeros
+                        Console.Write("¿Cuantos Numeros deseas ingresar?: ");
+                        int sub = int.Parse(Console.ReadLine());
+
+                        for (int i = 0; i < sub; i++)
+                        {
+                            Console.Write("( " + (i + 1) + ": )");
+                            float num = float.Parse(Console.ReadLine());
+                            arreglo.Add(num);
+                        }
+                        break;
+
+                    case 2:
+                        //Mostrar los numeros guardados 
+                        Stream Archivo1 = new FileStream("Archivo.txt",FileMode.OpenOrCreate);
+                        StreamReader Leer = new StreamReader(Archivo1);
+
+                        Console.WriteLine(Leer.ReadToEnd());
+
+                        Leer.Close();
+                        Archivo1.Close();
+
+                        break;
+                    case 3:
+                        //Ordenar los numeros
+                        Console.WriteLine("Mayor a Menor : 1");
+                        Console.WriteLine("Menor a Mayor : 2");
+                        
+                        int orden = int.Parse(Console.ReadLine());
+                        Console.WriteLine("");
+
+                        if (orden == 1) {
+                            for (int i = arreglo.Count; i >= 0; i--)
+                            { 
+                                for (int j = 0; j < i - 1; j++)
+                                {
+                                    if (arreglo[j] < arreglo[j + 1])
+                                    {
+                                        float aux = arreglo[j];
+                                        arreglo[j] = arreglo[j + 1];
+                                        arreglo[j + 1] = aux;
+                                        
+                                    }
+                                }
+                            }
+                        }
+                        else if (orden == 2){
+                            for (int i = arreglo.Count; i >= 0; i--)
+                            {
+                                for (int j = 0; j < i - 1; j++)
+                                {
+                                    if (arreglo[j] > arreglo[j + 1])
+                                    {
+                                        float aux = arreglo[j];
+                                        arreglo[j] = arreglo[j + 1];
+                                        arreglo[j + 1] = aux;
+                                  
+                                    }
+                                }
+                            }
+                        }
+                      
+                        for (int i = 0; i < arreglo.Count; i++)
+                        {
+                            Console.WriteLine(arreglo[i]);
+                        }
+                        break;
+                    case 4:
+                        //Guardar los numeros
+                        Stream Archivo2 = new FileStream("Archivo.txt",FileMode.OpenOrCreate);
+                        StreamWriter Escribir = new StreamWriter(Archivo2);
+
+                        for (int i = 0; i < arreglo.Count; i++)
+                        {
+                            Escribir.WriteLine(arreglo[i]);
+                        }
+
+                        Escribir.Close();
+                        Archivo2.Close();
+                        break;
+                    case 0:
+                        //Salir de la consola
+                        Console.WriteLine("Salir");
+                        break;
+                    default:
+                        Console.WriteLine("Opcion no valida");
+                        break;
+                }
+
+            } while (opcion != 0);
+                       
+        }
+    }
+}
+Datos de los integrantes:
+Nombre d elos intregrant:Cristobal Caballero Angel, Jhovani Martin Jimenez Lopez
+Nombre de la actividad:Escribir una Aplicacion de consola
+Materia:Administracion y Organizacion de Datos
+Tema:Aplicacion de consolaa
